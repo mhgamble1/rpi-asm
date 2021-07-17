@@ -1,0 +1,2 @@
+as -o add0.o add0.s
+ld -o add0 add0.o
