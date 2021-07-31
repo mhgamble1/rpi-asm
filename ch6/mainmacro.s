@@ -9,21 +9,29 @@
 @ R7 - linux function number
 @
 
+.include "uppermacro.s"
+
 .global _start	            @ Provide program starting address to linker
 
-_start: LDR	R0, =instr @ start of input string
-	LDR	R1, =outstr @ address of output string
-	MOV	R4, #12
-	MOV	R5, #13
-
-	BL	toupper
+_start:	toupper tststr, buffer
 
 @ Setup the parameters to print our hex number
 @ and then call Linux to do it.
 	MOV	R2,R0	@ return code is the length of the string
 
 	MOV	R0, #1	    @ 1 = StdOut
-	LDR	R1, =outstr @ string to print
+	LDR	R1, =buffer @ string to print
+	MOV	R7, #4	    @ linux write system call
+	SVC	0 	    @ Call linux to output the string
+
+	toupper tststr2, buffer
+
+@ Setup the parameters to print our hex number
+@ and then call Linux to do it.
+	MOV	R2,R0	@ return code is the length of the string
+
+	MOV	R0, #1	    @ 1 = StdOut
+	LDR	R1, =buffer @ string to print
 	MOV	R7, #4	    @ linux write system call
 	SVC	0 	    @ Call linux to output the string
 
@@ -34,5 +42,6 @@ _start: LDR	R0, =instr @ start of input string
         SVC     0           @ Call linux to terminate the program
 
 .data
-instr:  .asciz  "This is our Test String that we will convert.\n"
-outstr:	.fill	255, 1, 0
+tststr:  .asciz  "This is our Test String that we will convert.\n"
+tststr2: .asciz	 "A second string to upper case!!\n"
+buffer:	.fill	255, 1, 0
