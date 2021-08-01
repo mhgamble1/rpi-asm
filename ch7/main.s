@@ -59,8 +59,8 @@ exit: MOV   R0, #0      @ Use 0 return code
 .data
 inFile: .asciz "main.s"
 outFile: .asciz     "upper.txt"
-buffer:     .fill   BUFFERLEN + 1, 1, 0
-outBuf:     .fill   BUFFERLEN + 1, 1, 0
+buffer: .fill   BUFFERLEN + 1, 1, 0
+outBuf: .fill   BUFFERLEN + 1, 1, 0
 inpErr: .asciz      "Failed to open input file.\n"
 inpErrsz:   .word   .-inpErr
 outErr:     .asciz      "Failed to open output file.\n"
