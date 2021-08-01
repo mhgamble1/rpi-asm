@@ -40,7 +40,7 @@ loop: readFile      R8, buffer, BUFFERLEN
         LDR         R0, =buffer     @ first param for toupper
         STRB        R1, [R0, R10]   @ put null at end of string.
         LDR         R1, =outBuf
-        BP          toupper
+        BL          toupper
 
         writeFile   R9, outBuf, R10
 

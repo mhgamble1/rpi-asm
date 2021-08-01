@@ -13,4 +13,4 @@ all: upper
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
 
 upper: $(UPPEROBJS)
-	ls -o upper $(UPPEROBJS)
+	ld -o upper $(UPPEROBJS)
